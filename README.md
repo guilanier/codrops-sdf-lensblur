@@ -19,15 +19,13 @@
 
 ## Installation
 
-Run this demo on a [local server](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/set_up_a_local_testing_server).
-
-## Credits
-
-- Images generated with [Midjourney](https://midjourney.com)
+Run this demo with:
+`npm install`z
+`npm run dev`
 
 ## Misc
 
-Follow *Author*: [Twitter](), [Instagram](), [GitHub]() 
+Follow *Author*: [X](https://x.com/guilanier), [GitHub](https://github.com/guilanier) 
 
 Follow Codrops: [X](http://www.X.com/codrops), [Facebook](http://www.facebook.com/codrops), [GitHub](https://github.com/codrops), [Instagram](https://www.instagram.com/codropsss/)
 
