@@ -1,0 +1,9 @@
+node_modules
+dist
+__remove__
+shared
+tools/prettier-config/__tests__/fixtures
+__deprectae__
+build
+.output
+.nuxt
