@@ -7,7 +7,7 @@ const vMouse = new THREE.Vector2();
 const vResolution = new THREE.Vector2();
 
 document.addEventListener('mousemove', (e) => {
-  vMouse.set(e.pageX, h - e.pageY);
+  vMouse.set(e.pageX, e.pageY);
 })
 
 // Viewport setup
@@ -38,6 +38,30 @@ const mat = new THREE.ShaderMaterial({
     uniform vec2 u_mouse;
     uniform vec2 u_resolution;
 
+    #define uResolution u_resolution
+
+    /* Coordinate and unit utils */
+    #ifndef FNC_COORD
+    #define FNC_COORD
+    vec2 coord(in vec2 p) {
+        p = p / uResolution.xy;
+        // correct aspect ratio
+        if (uResolution.x > uResolution.y) {
+            p.x *= uResolution.x / uResolution.y;
+            p.x += (uResolution.y - uResolution.x) / uResolution.y / 2.0;
+        } else {
+            p.y *= uResolution.y / uResolution.x;
+            p.y += (uResolution.x - uResolution.y) / uResolution.x / 2.0;
+        }
+        // centering
+        p -= 0.5;
+        p *= vec2(-1.0, 1.0);
+        return p;
+    }
+    #endif
+
+    #define st0 coord(gl_FragCoord.xy)
+
     /* sdf functions */
     float sdRoundRect(vec2 p, vec2 b, float r) {
       vec2 d = abs(p - 0.5) * 4.2 - b + vec2(r);
@@ -65,22 +89,23 @@ const mat = new THREE.ShaderMaterial({
     }
 
     void main() {
-        vec2 st = v_texcoord;
-        vec2 pixel = 1.0 / u_resolution.xy;
-        vec2 posMouse = (u_mouse * pixel);
+        vec2 pixel = 1.0 / u_resolution.xy * 2.;
+        vec2 st = st0 + 0.5;
+        vec2 posMouse = vec2(1., 1.) - u_mouse * pixel;
 
-        // sdf Round Rect params
+        /* sdf Round Rect params */
         float size = 1.0;
         float roundness = 0.4;
         float borderSize = 0.05;
         
-        // sdf Circle params
-        float sdfCircleSize = 0.3;
-        float sdfCircleEdge = 0.5;
+        /* sdf Circle params */
+        float circleSize = 0.3;
+        float circleEdge = 0.5;
+        
         float sdfCircle = fill(
             sdCircle(st, posMouse),
-            sdfCircleSize,
-            sdfCircleEdge
+            circleSize,
+            circleEdge
         );
         
         float sdf = sdRoundRect(st, vec2(size), roundness);
@@ -117,8 +142,10 @@ const resize = () => {
   w = window.innerWidth;
   h = window.innerHeight;
 
+  const dpr = Math.min(window.devicePixelRatio, 2);
+
   renderer.setSize(w, h);
-  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setPixelRatio(dpr);
 
   camera.left = -w / 2;
   camera.right = w / 2;
@@ -127,8 +154,8 @@ const resize = () => {
   camera.updateProjectionMatrix();
 
   quad.scale.set(w, h, 1);
-  vResolution.set(w, h);
+  vResolution.set(w, h).multiplyScalar(dpr);
 };
 resize();
 
-document.addEventListener('resize', resize)
+window.addEventListener('resize', resize)
