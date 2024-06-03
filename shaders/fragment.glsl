@@ -29,7 +29,7 @@ vec2 coord(in vec2 p) {
 #define st0 coord(gl_FragCoord.xy)
 #define mx coord(u_mouse * u_pixelRatio)
 
-/* sdf functions */
+/* signed distance functions */
 float sdRoundRect(vec2 p, vec2 b, float r) {
     vec2 d = abs(p - 0.5) * 4.2 - b + vec2(r);
     return min(max(d.x, d.y), 0.0) + length(max(d, 0.0)) - r;

@@ -8,9 +8,8 @@ const vMouse = new THREE.Vector2();
 const vMouseDamp = new THREE.Vector2();
 const vResolution = new THREE.Vector2();
 
-// Viewport setup
-let w = window.innerWidth;
-let h = window.innerHeight;
+// Viewport setup (updated on resize)
+let w, h = 1;
 
 // Orthographic camera setup
 const aspect = w / h;
@@ -27,7 +26,7 @@ document.body.addEventListener('touchmove', function (e) { e.preventDefault(); }
 // Plane geometry covering the full viewport
 const geo = new THREE.PlaneGeometry(1, 1);  // Scaled to cover full viewport
 
-// Shader material
+// Shader material creation
 const mat = new THREE.ShaderMaterial({
   vertexShader: /* glsl */`
     varying vec2 v_texcoord;
@@ -35,7 +34,7 @@ const mat = new THREE.ShaderMaterial({
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         v_texcoord = uv;
     }`,
-  fragmentShader,
+  fragmentShader, // most of the action happening in the fragment
   uniforms: {
     u_mouse: { value: vMouseDamp },
     u_resolution: { value: vResolution },

@@ -1,31 +1,22 @@
-*How to use this template:*
+# Shape Lens Blur Effect with SDFs and WebGL
 
-- Styles for the demo go in css/base.css
-- Add build instructions and credits to the README.md
-- For writing the tutorial, take a look at https://github.com/crnacura/CodropsTemplate/wiki/Writing-the-article
-- Delete this 'how to' intro in the final version and leave the following (fill in title/description, credits and social links of your likings, we'll do the rest):
-
--------
-
-# Title of the demo
-
-*A description of the demo goes here.*
+*An introduction to leveraging the power of Signed Distance Fields (SDFs) to draw shapes in WebGL and create lens blur effect on user interaction.*
 
 ![Image Title](https://generative-placeholders.glitch.me/image?width=800&height=600")
 
-[Article on Codrops](https://tympanus.net/codrops/?p=)
+[Article on Codrops](https://tympanus.net/codrops/?p=77970)
 
 [Demo](http://tympanus.net/Development/.../)
 
 ## Installation
 
-Run this demo with:
-`npm install`z
-`npm run dev`
+- Install with `npm install`
+- Run demo with `npm run dev`
+- Build with `npm run build`
 
 ## Misc
 
-Follow *Author*: [X](https://x.com/guilanier), [GitHub](https://github.com/guilanier) 
+Follow *Guillaume Lanier*: [X](https://x.com/guilanier), [GitHub](https://github.com/guilanier) 
 
 Follow Codrops: [X](http://www.X.com/codrops), [Facebook](http://www.facebook.com/codrops), [GitHub](https://github.com/codrops), [Instagram](https://www.instagram.com/codropsss/)
 
