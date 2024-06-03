@@ -14,6 +14,11 @@
 - Run demo with `npm run dev`
 - Build with `npm run build`
 
+## Credits
+- [Three.js](https://threejs.org/) - WebGL Library
+- [Inigo Quilez's Articles](https://iquilezles.org/articles/distfunctions2d/) - 2D distance functions
+- [The Book of Shaders](https://thebookofshaders.com/) - Shaders learning resources
+
 ## Misc
 
 Follow *Guillaume Lanier*: [X](https://x.com/guilanier), [GitHub](https://github.com/guilanier) 
