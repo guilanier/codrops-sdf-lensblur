@@ -1,8 +1,8 @@
 # Shape Lens Blur Effect with SDFs and WebGL
 
-*An introduction to leveraging the power of Signed Distance Fields (SDFs) to draw shapes in WebGL and create lens blur effect on user interaction.*
+*An introduction to leveraging the power of Signed Distance Fields (SDFs) to draw shapes with interactive lens blur effect.*
 
-![Image Title](https://generative-placeholders.glitch.me/image?width=800&height=600")
+![SDF Lens Blur](docs/demo.gif)
 
 [Article on Codrops](https://tympanus.net/codrops/?p=77970)
 
