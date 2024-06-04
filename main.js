@@ -2,6 +2,13 @@ import './css/base.css';
 import * as THREE from 'three';
 import fragmentShader from './shaders/fragment.glsl';
 
+// extract "variation" parameter from the url
+const urlParams = new URLSearchParams(window.location.search);
+const variation = urlParams.get('var') || 0;
+
+// add selected class to link based on variation parameter
+document.querySelector(`[data-var="${variation}"]`).classList.add('selected');
+
 // Scene setup
 const scene = new THREE.Scene();
 const vMouse = new THREE.Vector2();
@@ -39,8 +46,12 @@ const mat = new THREE.ShaderMaterial({
     u_mouse: { value: vMouseDamp },
     u_resolution: { value: vResolution },
     u_pixelRatio: { value: 2 }
+  },
+  defines: {
+    VAR: variation
   }
 });
+
 
 // Mesh creation
 const quad = new THREE.Mesh(geo, mat);

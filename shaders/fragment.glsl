@@ -4,20 +4,31 @@ uniform vec2 u_mouse;
 uniform vec2 u_resolution;
 uniform float u_pixelRatio;
 
-#define uResolution u_resolution
+/* common constants */
+#ifndef PI
+#define PI 3.1415926535897932384626433832795
+#endif
+#ifndef TWO_PI
+#define TWO_PI 6.2831853071795864769252867665590
+#endif
+
+/* variation constant */
+#ifndef VAR
+#define VAR 0
+#endif
 
 /* Coordinate and unit utils */
 #ifndef FNC_COORD
 #define FNC_COORD
 vec2 coord(in vec2 p) {
-    p = p / uResolution.xy;
+    p = p / u_resolution.xy;
     // correct aspect ratio
-    if (uResolution.x > uResolution.y) {
-        p.x *= uResolution.x / uResolution.y;
-        p.x += (uResolution.y - uResolution.x) / uResolution.y / 2.0;
+    if (u_resolution.x > u_resolution.y) {
+        p.x *= u_resolution.x / u_resolution.y;
+        p.x += (u_resolution.y - u_resolution.x) / u_resolution.y / 2.0;
     } else {
-        p.y *= uResolution.y / uResolution.x;
-        p.y += (uResolution.x - uResolution.y) / uResolution.x / 2.0;
+        p.y *= u_resolution.y / u_resolution.x;
+        p.y += (u_resolution.x - u_resolution.y) / u_resolution.x / 2.0;
     }
     // centering
     p -= 0.5;
@@ -36,6 +47,12 @@ float sdRoundRect(vec2 p, vec2 b, float r) {
 }
 float sdCircle(in vec2 st, in vec2 center) {
     return length(st - center) * 2.0;
+}
+float sdPoly(in vec2 p, in float w, in int sides) {
+    float a = atan(p.x, p.y) + PI;
+    float r = TWO_PI / float(sides);
+    float d = cos(floor(0.5 + a / r) * r - a) * length(max(abs(p) * 1.0, 0.0));
+    return d * 2.0 - w;
 }
 
 /* antialiased step function */
@@ -76,10 +93,19 @@ void main() {
         circleEdge
     );
     
-    /* sdf round rectangle with stroke params adjusted by sdf circle */
     float sdf;
-    sdf = sdRoundRect(st, vec2(size), roundness);
-    sdf = stroke(sdf, 0.0, borderSize, sdfCircle) * 4.0;
+    if (VAR == 0) {
+        /* sdf round rectangle with stroke param adjusted by sdf circle */
+        sdf = sdRoundRect(st, vec2(size), roundness);
+        sdf = stroke(sdf, 0.0, borderSize, sdfCircle) * 4.0;
+    } else if (VAR == 1) {
+        /* sdf circle with fill param adjusted by sdf circle */
+        sdf = sdCircle(st, vec2(0.5));
+        sdf = fill(sdf, 0.6, sdfCircle) * 1.2;
+    } else if (VAR == 2) {
+        sdf = sdPoly(st - vec2(0.5, 0.45), 0.3, 3);
+        sdf = fill(sdf, 0.05, sdfCircle) * 1.4;
+    }
     
     vec3 color = vec3(sdf);
     gl_FragColor = vec4(color.rgb, 1.0);

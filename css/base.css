@@ -6,9 +6,9 @@
 
 :root {
 	font-size: 16px;
-	--color-text: #111;
+	--color-text: #ffffff;
 	--color-bg: #fff;
-	--color-link: #aaa;
+	--color-link: #898989;
 	--color-link-hover: #fff;
 	--page-padding: 1.5rem;
 }
@@ -172,6 +172,17 @@ a:focus-visible {
 	grid-area: demos;
 	display: flex;
 	gap: 1rem;
+	margin-right: 1em;
+}
+
+.frame__demos span {
+	opacity: 0.8;
+
+}
+
+.frame__demos a.selected {
+  font-weight: bold;
+  color: var(--color-link-hover);
 }
 
 .content {
