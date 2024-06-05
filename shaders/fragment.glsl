@@ -77,7 +77,7 @@ void main() {
     vec2 st = st0 + 0.5;
     vec2 posMouse = mx * vec2(1., -1.) + 0.5;
     
-    /* sdf Round Rect params */
+    /* sdf (Round Rect) params */
     float size = 1.2;
     float roundness = 0.4;
     float borderSize = 0.05;
@@ -103,6 +103,11 @@ void main() {
         sdf = sdCircle(st, vec2(0.5));
         sdf = fill(sdf, 0.6, sdfCircle) * 1.2;
     } else if (VAR == 2) {
+        /* sdf circle with stroke param adjusted by sdf circle */
+        sdf = sdCircle(st, vec2(0.5));
+        sdf = stroke(sdf, 0.58, 0.02, sdfCircle) * 4.0;
+    } else if (VAR == 3) {
+        /* sdf circle with fill param adjusted by sdf circle */
         sdf = sdPoly(st - vec2(0.5, 0.45), 0.3, 3);
         sdf = fill(sdf, 0.05, sdfCircle) * 1.4;
     }
