@@ -6,7 +6,7 @@
 
 [Article on Codrops](https://tympanus.net/codrops/?p=77970)
 
-[Demo](http://tympanus.net/Development/.../)
+[Demo](http://tympanus.net/Tutorials/SDFLensBlur/)
 
 ## Installation
 

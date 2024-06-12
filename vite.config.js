@@ -13,6 +13,8 @@ export default defineConfig({
       warnDuplicatedImports: true, // Warn if the same chunk was imported multiple times
       compress: false, // Compress the resulting shader code
     })],
+  root: '',
+  base: './',
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
